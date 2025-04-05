@@ -1,6 +1,7 @@
 import * as Styled from "./UpperPaginationBar.styled";
 import { useState, useRef } from "react";
 
+
 const UpperPaginationBar = ({
     metadata,
     resultsPerPage,
@@ -35,13 +36,19 @@ const UpperPaginationBar = ({
         }
     };
 
+    const getFormattedPaginationInfo = () => {
+        return `Showing ${metadata.startIndex}-${metadata.endIndex} of ${metadata.filteredCount} results${metadata.filteredCount !== metadata.totalCount ? " for applied filters" : ""}`;
+    };
+
     const CountChanger = () => {
         return (
             <Styled.PerPageInput
+                id="update-results-per-page"
                 name="update-results-per-page"
-                defaultValue={resultsPerPage}
-                isValid={isValid}
-                onChange={handleInputChange}
+                aria-label="Results Per Page"
+                value={resultsPerPage}
+                $isValid={isValid}
+                onChange={(handleInputChange)}
                 onKeyUp={(e) => { if (e.key === "Enter") handleValueUpdate() }}
                 onBlur={handleValueUpdate}
             />
@@ -55,32 +62,7 @@ const UpperPaginationBar = ({
             <Styled.InfoText>
                 {
                     metadata.totalCount ?
-                        <>
-                            Showing
-                            <Styled.Count>
-                                {
-                                    metadata.startIndex
-                                }
-                            </Styled.Count>
-                            -
-                            <Styled.Count>
-                                {
-                                    metadata.endIndex
-                                }
-                            </Styled.Count>
-                            of
-                            <Styled.Count>
-                                {
-                                    metadata.filteredCount
-                                }
-                            </Styled.Count>
-                            results
-                            {
-                                metadata.filteredCount != metadata.totalCount
-                                && " for applied filters"
-                            }
-                        </>
-                        :
+                        getFormattedPaginationInfo() :
                         <></>
                 }
             </Styled.InfoText>
