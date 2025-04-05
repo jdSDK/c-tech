@@ -1,7 +1,8 @@
 import { ChevronFirst, ChevronLast, ChevronLeft, ChevronRight } from 'lucide-react';
-import { PaginationContainer, PaginationControls, PaginationButton, PaginationInfo } from './SearchResultsPaginationLowerSection.styled';
+import * as Styled from './LowerPaginationBar.styled';
+import { useState } from 'react';
 
-const SearchResultsPaginationLowerSection = ({
+const LowerPaginationBar = ({
     queryParams,
     setQueryParams,
     setResultsPerPage,
@@ -32,49 +33,63 @@ const SearchResultsPaginationLowerSection = ({
         }));
     };
 
+    const CountChanger = () => {
+        return (
+            <Styled.PageInput
+                name="update-page"
+                defaultValue={currentPage}
+                onKeyUp={(e) => {
+                    if (e.key === "Enter") {
+                        handlePageChange(parseInt(e.target.value, 10));
+                    }
+                }}
+            />
+        )
+    }
+
     return (
-        <PaginationContainer>
-            <PaginationControls>
-                <PaginationButton
+        <Styled.PaginationContainer>
+            <Styled.PaginationControls>
+                <Styled.PaginationButton
                     onClick={() => handlePageChange(1)}
                     disabled={!hasPreviousPage}
                     $isActive={false}
                 >
                     <ChevronFirst size={16} />
-                </PaginationButton>
-                <PaginationButton
+                </Styled.PaginationButton>
+                <Styled.PaginationButton
                     onClick={() => handlePageChange(currentPage - 1)}
                     disabled={!hasPreviousPage}
                     $isActive={false}
                 >
                     <ChevronLeft size={16} />
-                </PaginationButton>
+                </Styled.PaginationButton>
 
-                <PaginationInfo>
-                    {currentPage} of {pageCount}
-                </PaginationInfo>
+                <Styled.PaginationInfo>
+                    <CountChanger /> of {pageCount}
+                </Styled.PaginationInfo>
 
-                <PaginationButton
+                <Styled.PaginationButton
                     onClick={() => handlePageChange(currentPage + 1)}
                     disabled={!hasNextPage}
                     $isActive={false}
                 >
                     <ChevronRight size={16} />
-                </PaginationButton>
-                <PaginationButton
+                </Styled.PaginationButton>
+                <Styled.PaginationButton
                     onClick={() => handlePageChange(lastPage)}
                     disabled={!hasNextPage}
                     $isActive={false}
                 >
                     <ChevronLast size={16} />
-                </PaginationButton>
+                </Styled.PaginationButton>
 
 
 
-            </PaginationControls>
-        </PaginationContainer>
+            </Styled.PaginationControls>
+        </Styled.PaginationContainer>
     );
 };
 
-export default SearchResultsPaginationLowerSection;
+export default LowerPaginationBar;
 

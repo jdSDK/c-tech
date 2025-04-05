@@ -12,7 +12,7 @@ const GlobalStyle = createGlobalStyle`
         background-repeat: no-repeat;
         font-family: Inter, sans-serif;
         height: 100%;
-        min-width: 900px;
+        min-width: 1100px;
     }
 `
 const Page = styled.div`
@@ -31,14 +31,14 @@ const Page = styled.div`
 `;
 
 const Container = styled.div`
-    padding: 2em;
-    width: 65%;
+    padding: 1em;
+    width: 60%;
     background-color: #f4f4f4;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     margin: 20px;
 
-    @media (max-width: 1200px) {
+    @media (max-width: 1500px) {
        width: 85%;
     }
 `;

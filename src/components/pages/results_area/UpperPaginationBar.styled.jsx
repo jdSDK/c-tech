@@ -20,6 +20,18 @@ export const InfoText = styled.div`
 `;
 
 export const Count = styled.span`
-  font-weight: 600;
-  color: #2c3e50;
+  color: #111;
+`;
+
+export const PerPageInput = styled.input`
+    width: 50px;
+    height: 25px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 13px;
+    text-align: center;
+    &:focus {
+        outline: none;
+        border-color: #007bff;
+    }
 `;

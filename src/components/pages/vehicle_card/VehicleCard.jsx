@@ -1,28 +1,27 @@
 import car_placeholder from "../../../assets/car_placeholder.png"
 import VehicleCardDetails from "./VehicleCardDetails";
 import VehicleAuctionDetails from "./VehicleAuctionDetails";
-import VehicleCardHeader from "./VehicleCardHeader";
+import Header from "./Header";
 import VehicleCardFooter from "./VehicleCardFooter";
-import {
-    Card,
-    CardImage,
-    CardContents,
-    CardDetails
-} from "./VehicleCard.styled";
+import * as Styled from "./VehicleCard.styled";
 
-const VehicleCard = ({ vehicle, index }) => {
+const VehicleCard = ({ vehicle, index, favouriteToggle, handleViewDetail }) => {
     return (
-        <Card $index={index}>
-            <CardImage src={car_placeholder} />
-            <CardContents>
-                <VehicleCardHeader vehicle={vehicle} />
-                <CardDetails>
+        <Styled.Card $index={index}>
+            <Styled.CardImage src={car_placeholder} />
+            <Styled.CardContents>
+                <Header vehicle={vehicle} />
+                <Styled.DetailSection>
                     <VehicleCardDetails vehicle={vehicle} />
                     <VehicleAuctionDetails vehicle={vehicle} />
-                </CardDetails>
-                <VehicleCardFooter vehicle={vehicle} />
-            </CardContents>
-        </Card>
+                </Styled.DetailSection>
+                <VehicleCardFooter
+                    vehicle={vehicle}
+                    favouriteToggle={favouriteToggle}
+                    handleViewDetail={handleViewDetail}
+                />
+            </Styled.CardContents>
+        </Styled.Card>
     )
 }
 

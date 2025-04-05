@@ -3,6 +3,7 @@ docs go here
 */
 class Vehicle {
     constructor({
+        reference,
         make,
         model,
         engineSize,
@@ -15,6 +16,7 @@ class Vehicle {
         location,
         details = {},
     }) {
+        this.reference = reference;
         this.make = make;
         this.model = model;
         this.engineSize = engineSize;
@@ -33,6 +35,7 @@ class Vehicle {
     }
 
     static API_KEYWORDS = {
+        reference: "reference",
         make: "make",
         model: "model",
         engineSize: "engineSize",
@@ -46,15 +49,28 @@ class Vehicle {
         location: "location",
     };
 
-    static MAKE_MODEL_SETS = {
+    static KEYWORD_FILTER_LABELS = {
+        make: "Make",
+        model: "Model",
+        engineSize: "Engine Size",
+        fuel: "Fuel",
+        year: "Year",
+        mileage: "Mileage",
+        auctionDateTime: "Auction Date",
+        startingBid: "Starting Bid",
+        favourite: "Favourites",
+        location: "Location",
+    };
+
+    static MAKE_MODEL_SETS = { // I'd populate this from an endpoint in a real world scenario
         "Toyota": ["Corolla", "C- HR"],
-        "Ford": ["Focus", "Fiesta", "Focus C-Max"],
-        "Volkswagen": ["Polo", "Passat", "Golf"],
-        "Audi": ["A3", "A4"],
+        "Ford": ["Focus", "Fiesta", "Focus C-Max", "Escort"],
+        "Volkswagen": ["Polo", "Passat", "Golf", "Scirocco", "Tiguan"],
+        "Audi": ["A3", "A4", "A6"],
         "Volvo": ["C40", "C30", "V40"],
-        "Citroen": ["C3 Aircross", "C5 Aircross", "C3 Origin"],
-        "BMW": ["3 Series", "1 Series"],
-        "Mercedes-Benz": ["A-Class Hatchback", "B-Class", "A-Class Saloon"],
+        "Citroen": ["C3 Aircross", "C5 Aircross", "C3 Origin", "Cactus"],
+        "BMW": ["3 Series", "1 Series", "5-Series", "X1"],
+        "Mercedes-Benz": ["A-Class Hatchback", "B-Class", "A-Class Saloon", "E-Class Saloon"],
     }
 
     static getMakeOptions = () => Object.keys(Vehicle.MAKE_MODEL_SETS);
@@ -68,6 +84,25 @@ class Vehicle {
         });
         return models;
     }
+    static getSortOptions = () => {
+        return [
+            "make",
+            "startingBid",
+            "auctionDateTime",
+            "year",
+            "mileage",
+        ]
+
+    }
+    static isKeywordStringField = (keyword) => {
+        return [
+            Vehicle.API_KEYWORDS.make,
+            Vehicle.API_KEYWORDS.model,
+            Vehicle.API_KEYWORDS.fuel,
+            Vehicle.API_KEYWORDS.location,
+        ].includes(keyword);
+    }
+
 
     static get(path, queryParams) {
         /*
@@ -96,7 +131,7 @@ class Vehicle {
         console.log("DEBUG:VEHICLES/GET: Applying query params: ", queryParams);
         if (queryParams.filter) {
             // Destructure the filter inner JSON
-            const { make, model, startingBid_range_start, startingBid_range_end, favourite } = queryParams.filter;
+            const { make, model, favourite } = queryParams.filter;
             vehicles = vehicles.filter(vehicle => {
                 let matches = true;
 
@@ -106,16 +141,33 @@ class Vehicle {
                 if (model) {
                     matches = matches && vehicle.model.toLowerCase() === queryParams.filter.model.toLowerCase();
                 }
-                if (startingBid_range_start !== null && startingBid_range_start !== undefined) {
-                    matches = matches && vehicle.startingBid >= queryParams.filter.startingBid_range_start;
-                }
-                if (startingBid_range_end !== null && startingBid_range_end !== undefined) {
-                    matches = matches && vehicle.startingBid <= queryParams.filter.startingBid_range_end;
-                }
                 if (favourite !== null && favourite !== undefined) {
                     matches = matches && vehicle.favourite === favourite;
                 }
 
+                return matches;
+            });
+        }
+        if (queryParams.rangeFilter) {
+            // Destructure the rangeFilter inner JSON
+            const { startingBid, mileage, year } = queryParams.rangeFilter;
+            vehicles = vehicles.filter(vehicle => {
+                let matches = true;
+                if (startingBid.min || startingBid.max) {
+                    matches = matches
+                        && vehicle.startingBid >= (startingBid.min || 0)
+                        && vehicle.startingBid <= (startingBid.max || Infinity);
+                }
+                if (mileage.min || mileage.max) {
+                    matches = matches
+                        && vehicle.mileage >= (mileage.min || 0)
+                        && vehicle.mileage <= (mileage.max || Infinity);
+                }
+                if (year.min || year.max) {
+                    matches = matches
+                        && vehicle.year >= (year.min || 0)
+                        && vehicle.year <= (year.max || Infinity);
+                }
                 return matches;
             });
         }
@@ -168,6 +220,10 @@ class Vehicle {
         };
     }
 
+    static patch(path, vehicle) {
+        // Here i would update the vehicle by ID
+    }
+
     static parseEmissionsValue(value) {
         if (value === null) {
             return null;
@@ -180,9 +236,17 @@ class Vehicle {
         }
         return null;
     }
+    static parseEmissionsValueToString(value) {
+        if (value === null) {
+            return null;
+        }
+        return `${value} g/km`;
+    }
+
 
     static fromJson(json) {
         return new Vehicle({
+            reference: json[Vehicle.API_KEYWORDS.reference],
             make: json[Vehicle.API_KEYWORDS.make],
             model: json[Vehicle.API_KEYWORDS.model],
             engineSize: json[Vehicle.API_KEYWORDS.engineSize],
@@ -204,6 +268,34 @@ class Vehicle {
             },
         });
     }
+
+    static toJson(vehicle) {
+        return {
+            [Vehicle.API_KEYWORDS.reference]: vehicle.reference,
+            [Vehicle.API_KEYWORDS.make]: vehicle.make,
+            [Vehicle.API_KEYWORDS.model]: vehicle.model,
+            [Vehicle.API_KEYWORDS.engineSize]: vehicle.engineSize,
+            [Vehicle.API_KEYWORDS.fuel]: vehicle.fuel,
+            [Vehicle.API_KEYWORDS.year]: vehicle.year,
+            [Vehicle.API_KEYWORDS.mileage]: vehicle.mileage,
+            [Vehicle.API_KEYWORDS.auctionDateTime]: vehicle.auctionDateTime,
+            [Vehicle.API_KEYWORDS.startingBid]: vehicle.startingBid,
+            [Vehicle.API_KEYWORDS.favourite]: vehicle.favourite,
+            [Vehicle.API_KEYWORDS.location]: vehicle.location,
+            [Vehicle.API_KEYWORDS.details]: {
+                [Vehicle.API_KEYWORDS.specification]: {
+                    ...vehicle.specification,
+                    co2Emissions: Vehicle.parseEmissionsValueToString(
+                        vehicle.specification?.co2Emissions
+                    ),
+                },
+                [Vehicle.API_KEYWORDS.ownership]: vehicle.ownership,
+                [Vehicle.API_KEYWORDS.equipment]: vehicle.equipment,
+            },
+        };
+    }
+
+
 }
 
 export default Vehicle;

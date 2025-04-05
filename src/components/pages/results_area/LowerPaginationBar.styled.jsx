@@ -5,8 +5,9 @@ export const PaginationContainer = styled.div`
   align-items: center;
   border-radius: 8px;
   justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   padding: 0.6em 1em;
-  background-color: white;
+  background-color: #f8f9fa;
   gap: 1em;
   font-size: 16px;
 `;
@@ -40,7 +41,15 @@ border-radius: 4px;
 export const PaginationInfo = styled.div`
     font-size: 0.8em;
     color: #555;
-    width: 80px;
     text-align: center;
     font-weight: 500;
 `;
+export const PageInput = styled.input`
+    width: 40px;
+    padding: 0;
+    text-align: center;
+    color: rgb(34, 115, 255);
+    height: 36px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    `;

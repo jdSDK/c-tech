@@ -1,14 +1,5 @@
 import styled, { keyframes } from 'styled-components';
-export const fadeIn = keyframes`
-    0% {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-`;
+import { popAndFadeIn } from "../../../components/common/Animations.styled";
 // -------------------------------------------------------------------------------------------------
 export const Card = styled.div`
 background-color: #fff;
@@ -20,8 +11,8 @@ display: flex;
 align-items: center;
 gap: 0.5em;
 opacity: 0; // Start with opacity 0
-animation: ${fadeIn} 0.5s ease-out forwards;
-animation-delay: ${props => props.$index * 150}ms;
+animation: ${popAndFadeIn} 0.5s ease-out forwards;
+animation-delay: ${props => Math.min(props.$index * 150, 1000)}ms;
 `;
 // -------------------------------------------------------------------------------------------------
 export const CardImage = styled.img`
@@ -40,7 +31,7 @@ display: flex;
 flex-direction: column;
 `;
 // -------------------------------------------------------------------------------------------------
-export const CardDetails = styled.div`
+export const DetailSection = styled.div`
 padding: 0px 0px;
 border-radius: 4px 4px 4px 4px;
 border-bottom: 1px solid rgb(236, 236, 236);
