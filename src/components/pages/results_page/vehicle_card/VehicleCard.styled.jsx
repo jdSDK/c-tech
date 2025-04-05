@@ -1,5 +1,5 @@
 import styled, { keyframes } from 'styled-components';
-import { popAndFadeIn } from "../../../components/common/Animations.styled";
+import { popAndFadeIn } from "../../../common/Animations.styled";
 // -------------------------------------------------------------------------------------------------
 export const Card = styled.div`
 background-color: #fff;
@@ -11,8 +11,8 @@ display: flex;
 align-items: center;
 gap: 0.5em;
 opacity: 0; // Start with opacity 0
-animation: ${popAndFadeIn} 0.5s ease-out forwards;
-animation-delay: ${props => Math.min(props.$index * 150, 1000)}ms;
+animation: ${ popAndFadeIn } 0.5s ease-out forwards;
+animation-delay: ${ props => Math.min( props.$index * 150, 1000 ) }ms;
 `;
 // -------------------------------------------------------------------------------------------------
 export const CardImage = styled.img`

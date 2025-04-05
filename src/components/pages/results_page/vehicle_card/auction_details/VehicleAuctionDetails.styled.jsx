@@ -29,6 +29,6 @@ display: flex;
 justify-content: flex-end;
 align-items: center;
 gap: 0.3em;
-    color: ${props => props.$urgent ? 'red' : 'green'};}
+    color: ${ props => props.$urgent ? 'red' : 'green' };}
 `;
 

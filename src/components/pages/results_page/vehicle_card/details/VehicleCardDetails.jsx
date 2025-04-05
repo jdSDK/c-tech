@@ -8,13 +8,13 @@ import {
     DetailEquipmentChip,
 } from './VehicleCardDetails.styled';
 import { Fuel, Gauge, Users, User, PackagePlus, PackageX, GitGraph } from 'lucide-react';
-import { parseCommaDelimitedString } from '../../../lib/Functions';
+import { parseCommaDelimitedString } from '../../../../../lib/Functions';
 
-const VehicleCardDetails = ({ vehicle }) => {
+const VehicleCardDetails = ( { vehicle } ) => {
     const fuel = vehicle.fuel;
-    const n_owners = vehicle?.ownership.numberOfOwners ?? 0;
+    const n_owners = vehicle?.ownership?.numberOfOwners ?? 0;
     const equipment = vehicle?.equipment ?? [];
-    const transmission = vehicle?.specification.transmission ?? null;
+    const transmission = vehicle?.specification?.transmission ?? null;
     return (
         <DetailsWrapper>
             <DetailsColumn>
@@ -22,19 +22,19 @@ const VehicleCardDetails = ({ vehicle }) => {
                     <GenericIconWrapper title="Kilometrage">
                         <Gauge />
                     </GenericIconWrapper>
-                    <DetailText>{parseCommaDelimitedString(vehicle.mileage)} km</DetailText>
+                    <DetailText>{ parseCommaDelimitedString( vehicle.mileage ) } km</DetailText>
                 </DetailLine>
                 <DetailLine>
                     <GenericIconWrapper title="Transmission">
                         <GitGraph />
                     </GenericIconWrapper>
-                    <DetailText>{transmission}</DetailText>
+                    <DetailText>{ transmission }</DetailText>
                 </DetailLine>
                 <DetailLine>
-                    <FuelIconWrapper $fuel={fuel} title="Fuel Type">
-                        <Fuel strokeWidth={2} />
+                    <FuelIconWrapper $fuel={ fuel } title="Fuel Type">
+                        <Fuel strokeWidth={ 2 } />
                     </FuelIconWrapper>
-                    <DetailText>{vehicle.fuel}</DetailText>
+                    <DetailText>{ vehicle.fuel }</DetailText>
                 </DetailLine>
 
             </DetailsColumn>
@@ -48,7 +48,7 @@ const VehicleCardDetails = ({ vehicle }) => {
                                 <User />
                         }
                     </GenericIconWrapper>
-                    <DetailText>{n_owners} owners</DetailText>
+                    <DetailText>{ n_owners } owners</DetailText>
                 </DetailLine>
                 <DetailLine>
                     <GenericIconWrapper title="Equipment">
@@ -64,16 +64,16 @@ const VehicleCardDetails = ({ vehicle }) => {
                             equipment.length > 0 ?
                                 <>
                                     {
-                                        equipment.slice(0, 1).map((item, index) => (
-                                            <DetailEquipmentChip key={index}>
-                                                {item}
+                                        equipment.slice( 0, 1 ).map( ( item, index ) => (
+                                            <DetailEquipmentChip key={ index }>
+                                                { item }
                                             </DetailEquipmentChip>
-                                        ))
+                                        ) )
                                     }
                                     {
                                         equipment.length > 1 ?
                                             <DetailEquipmentChip>
-                                                +{equipment.length - 1}
+                                                +{ equipment.length - 1 }
                                             </DetailEquipmentChip>
                                             :
                                             ""
@@ -87,7 +87,7 @@ const VehicleCardDetails = ({ vehicle }) => {
             </DetailsColumn>
         </DetailsWrapper>
     );
-}
+};
 
 
 export default VehicleCardDetails;

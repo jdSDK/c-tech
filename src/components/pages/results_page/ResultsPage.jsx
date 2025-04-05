@@ -12,7 +12,7 @@ import FilterChipsSection from "./results_area/filter_chips_section/FilterChipsS
 import UpperPaginationBar from "./results_area/upper_pagination_bar/UpperPaginationBar";
 import LowerPaginationBar from "./results_area/lower_pagination_bar/LowerPaginationBar";
 
-import DetailViewSidebar from "../detail_view/Sidebar";
+import DetailViewSidebar from "../detail_sidebar/Sidebar";
 
 const ResultsPage = () => {
     const [ vehiclesDB, setVehiclesDB ] = useState( [] );
