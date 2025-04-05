@@ -10,7 +10,6 @@ export const InfoContainer = styled.div`
   display: flex;
   justify-content: space-between;
 `;
-
 export const InfoText = styled.div`
   font-size: 0.8em;
   color: #6c757d;
@@ -18,20 +17,6 @@ export const InfoText = styled.div`
   align-items: center;
   gap: 4px;
 `;
-
 export const Count = styled.span`
   color: #111;
-`;
-
-export const PerPageInput = styled.input`
-    width: 50px;
-    height: 25px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    font-size: 13px;
-    text-align: center;
-    &:focus {
-        outline: none;
-        border-color: #007bff;
-    }
 `;

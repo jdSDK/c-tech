@@ -20,17 +20,17 @@ export const PaginationButton = styled.button`
   padding: 0;
   height: 36px;
   border: none;
-  border: ${props => (!props.$isActive && '1px solid #ddd')};
-  background: ${props => (props.$isActive ? 'rgb(11, 117, 203)' : 'none')};
-  color: ${props => (props.$isActive ? 'white' : '#222')};
-  font-weight: ${props => (props.isActive ? 'bold' : 'normal')};
+  border: ${ props => ( !props.$isActive && '1px solid #ddd' ) };
+  background: ${ props => ( props.$isActive ? 'rgb(11, 117, 203)' : 'none' ) };
+  color: ${ props => ( props.$isActive ? 'white' : '#222' ) };
+  font-weight: ${ props => ( props.isActive ? 'bold' : 'normal' ) };
 border-radius: 4px;
   padding: 10px 12px;
   cursor: pointer;
   transition: all 0.2s ease;
     &:hover {
-        background: ${props => (props.$isActive ? 'rgb(11, 117, 203)' : 'none')};
-        border: ${props => (!props.$isActive && '1px solid #ccc')};
+        background: ${ props => ( props.$isActive ? 'rgb(11, 117, 203)' : 'none' ) };
+        border: ${ props => ( !props.$isActive && '1px solid #ccc' ) };
     }
     &:disabled {
         background: #f0f0f0;
@@ -44,12 +44,3 @@ export const PaginationInfo = styled.div`
     text-align: center;
     font-weight: 500;
 `;
-export const PageInput = styled.input`
-    width: 40px;
-    padding: 0;
-    text-align: center;
-    color: rgb(34, 115, 255);
-    height: 36px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    `;

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { popAndFadeIn } from "../../common/Animations.styled";
+import { popAndFadeIn } from "../../../../common/Animations.styled";
 
 export const FilterChipsContainer = styled.div`
     display: flex;
@@ -20,10 +20,11 @@ export const FilterChip = styled.div`
     flex-direction: row;
     align-items: center;
     justify-items: center;
+    animation: ${ popAndFadeIn } 0.15s ease-out forwards;
+
     span {
         color:#777
     }
-    animation: ${popAndFadeIn} 0.15s ease-out forwards;
 
     &:hover {
         background-color:rgb(233, 233, 233);

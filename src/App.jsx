@@ -1,7 +1,7 @@
 import styled, { ThemeProvider } from "styled-components";
 import { createGlobalStyle } from "styled-components";
 
-import ResultsPage from "./components/pages/ResultsPage";
+import ResultsPage from "./components/pages/results_page/ResultsPage";
 
 const GlobalStyle = createGlobalStyle`
     body {
@@ -14,7 +14,7 @@ const GlobalStyle = createGlobalStyle`
         height: 100%;
         min-width: 1100px;
     }
-`
+`;
 const Page = styled.div`
     display: flex;
     justify-content: center;
@@ -52,7 +52,7 @@ const theme = {
     danger: "#dc3545",
     warning: "#ffc107",
     info: "#17a2b8",
-}
+};
 
 export { theme, GlobalStyle, Page, Container };
 
@@ -61,11 +61,11 @@ function App() {
     return (
         <>
             <GlobalStyle />
-            <ThemeProvider theme={theme}>
+            <ThemeProvider theme={ theme }>
                 <ResultsPage />
             </ThemeProvider>
         </>
-    )
+    );
 
 }
-export default App
+export default App;
