@@ -10,7 +10,9 @@ import {
 import { Fuel, Gauge, Users, User, PackagePlus, PackageX, GitGraph } from 'lucide-react';
 import { parseCommaDelimitedString } from '../../../../../lib/Functions';
 
-const VehicleCardDetails = ( { vehicle } ) => {
+const VehicleCardDetails = ( {
+    vehicle
+} ) => {
     const fuel = vehicle.fuel;
     const n_owners = vehicle?.ownership?.numberOfOwners ?? 0;
     const equipment = vehicle?.equipment ?? [];

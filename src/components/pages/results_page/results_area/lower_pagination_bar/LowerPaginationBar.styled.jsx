@@ -1,33 +1,33 @@
 import styled from 'styled-components';
 
 export const PaginationContainer = styled.div`
-  display: flex;
-  align-items: center;
-  border-radius: 8px;
-  justify-content: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  padding: 0.6em 1em;
-  background-color: #f8f9fa;
-  gap: 1em;
-  font-size: 16px;
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    padding: 0.6em 1em;
+    background-color:rgb(255, 255, 255);
+    gap: 1em;
+    font-size: 16px;
 `;
 export const PaginationControls = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 0.5em;
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
 `;
 export const PaginationButton = styled.button`
-  padding: 0;
-  height: 36px;
-  border: none;
-  border: ${ props => ( !props.$isActive && '1px solid #ddd' ) };
-  background: ${ props => ( props.$isActive ? 'rgb(11, 117, 203)' : 'none' ) };
-  color: ${ props => ( props.$isActive ? 'white' : '#222' ) };
-  font-weight: ${ props => ( props.isActive ? 'bold' : 'normal' ) };
-border-radius: 4px;
-  padding: 10px 12px;
-  cursor: pointer;
-  transition: all 0.2s ease;
+    padding: 0;
+    height: 36px;
+    border: none;
+    border: ${ props => ( !props.$isActive && '1px solid #ddd' ) };
+    background: ${ props => ( props.$isActive ? 'rgb(11, 117, 203)' : 'none' ) };
+    color: ${ props => ( props.$isActive ? 'white' : '#222' ) };
+    font-weight: ${ props => ( props.isActive ? 'bold' : 'normal' ) };
+    border-radius: 4px;
+    padding: 10px 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
     &:hover {
         background: ${ props => ( props.$isActive ? 'rgb(11, 117, 203)' : 'none' ) };
         border: ${ props => ( !props.$isActive && '1px solid #ccc' ) };

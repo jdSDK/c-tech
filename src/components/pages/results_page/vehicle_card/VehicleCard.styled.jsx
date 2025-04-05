@@ -42,3 +42,17 @@ justify-content: space-between;
 padding-bottom: 5px;
 margin-bottom:5px;
 `;
+export const ImageContainer = styled.div`
+    position: relative;
+    height: 170px;
+aspect-ratio: 1/1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`;
+
+export const Loader = styled.div`
+    font-size: 14px;
+    color: #aaa;
+    text-align: center;
+`;

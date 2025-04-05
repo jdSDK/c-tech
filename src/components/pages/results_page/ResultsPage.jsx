@@ -13,6 +13,7 @@ import UpperPaginationBar from "./results_area/upper_pagination_bar/UpperPaginat
 import LowerPaginationBar from "./results_area/lower_pagination_bar/LowerPaginationBar";
 
 import DetailViewSidebar from "../detail_sidebar/Sidebar";
+import SiteHeader from "../../common/site_header/SiteHeader";
 
 const ResultsPage = () => {
     const [ vehiclesDB, setVehiclesDB ] = useState( [] );
@@ -140,8 +141,9 @@ const ResultsPage = () => {
 
     return (
         <Page>
+            <SiteHeader />
             <Wrapper>
-                <Container width="20%" padding="0">
+                <Container $width="20%" $padding="0">
                     <FilterArea
                         queryParams={ queryParams }
                         setQueryParams={ handleQueryParamsChange }

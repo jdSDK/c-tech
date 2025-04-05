@@ -15,6 +15,7 @@ class Vehicle {
         favourite,
         location,
         details = {},
+        image,
     } ) {
         this.reference = reference;
         this.make = make;
@@ -27,6 +28,7 @@ class Vehicle {
         this.startingBid = startingBid;
         this.favourite = favourite;
         this.location = location;
+        this.image = image;
 
         // "details" gets deconstructed into these properties for easier handling
         this.specification = details.specification ?? {};
@@ -47,6 +49,7 @@ class Vehicle {
         favourite: "favourite",
         details: "details",
         location: "location",
+        image: "image",
     };
 
     static KEYWORD_FILTER_LABELS = {
@@ -265,7 +268,7 @@ class Vehicle {
             startIndex: startIndex + 1,
             endIndex: Math.min( endIndex, filteredCount )
         };
-
+        console.log( paginatedVehicles );
         return {
             vehicles: paginatedVehicles,
             metadata
@@ -318,6 +321,7 @@ class Vehicle {
                     ),
                 }
             },
+            image: json[ Vehicle.API_KEYWORDS.image ],
         } );
     }
 
@@ -344,6 +348,7 @@ class Vehicle {
                 [ Vehicle.API_KEYWORDS.ownership ]: vehicle.ownership,
                 [ Vehicle.API_KEYWORDS.equipment ]: vehicle.equipment,
             },
+            [ Vehicle.API_KEYWORDS.image ]: vehicle.image,
         };
     }
 

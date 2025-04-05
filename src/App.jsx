@@ -18,6 +18,8 @@ const GlobalStyle = createGlobalStyle`
 const Page = styled.div`
     display: flex;
     justify-content: center;
+    flex-direction: column;
+    align-items: center;
     height: 100%;
     width: 100%;
     color: #333;
@@ -30,8 +32,8 @@ const Page = styled.div`
 `;
 
 const Container = styled.div`
-    padding: ${ props => props.padding || "1em" };
-    width: ${ props => props.width || "100%" };
+    padding: ${ props => props.$padding || "1em" };
+    width: ${ props => props.$width || "100%" };
     height: fit-content;
     background-color: #f4f4f4;
     border-radius: 8px;
@@ -47,7 +49,6 @@ export const Wrapper = styled.div`
     width:80%;
     padding: 20px;
     min-width: 1200px;
-
     @media (max-width: 1550px) {
         width:95%;
     }

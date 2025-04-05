@@ -9,7 +9,9 @@ import {
 import { dateToString, getDaysUntilDate } from '../../../../../lib/Functions';
 import { Clock, ClockAlert } from "lucide-react";
 
-const VehicleAuctionDetails = ( { vehicle } ) => {
+const VehicleAuctionDetails = ( {
+    vehicle
+} ) => {
     const auctionDate = vehicle?.auctionDateTime;
     const daysLeft = getDaysUntilDate( auctionDate );
 

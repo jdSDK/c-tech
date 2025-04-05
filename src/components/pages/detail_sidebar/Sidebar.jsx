@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import car_placeholder from "../../../assets/car_placeholder.png";
 import { fadeIn, rightSlide } from "../../common/Animations.styled";
 import { X } from "lucide-react";
 import { dateToString, getDaysUntilDate, parseCommaDelimitedString } from "../../../lib/Functions";
@@ -15,14 +14,14 @@ const ScreenModalOverlay = styled.div`
     height: 100%;
     background-color: rgba(0, 0, 15, 0.5); 
     z-index: 999; 
-    display: ${({ $isOpen }) => ($isOpen ? "block" : "none")};
-    animation: ${({ $isOpen }) => ($isOpen ? fadeIn : "none")} 0.3s ease-in-out; 
+    display: ${ ( { $isOpen } ) => ( $isOpen ? "block" : "none" ) };
+    animation: ${ ( { $isOpen } ) => ( $isOpen ? fadeIn : "none" ) } 0.3s ease-in-out; 
 `;
 
 const SidebarContainer = styled.div`
     position: fixed;
     top: 0;
-    right: ${({ $isOpen }) => ($isOpen ? "0" : "-100%")}; // Slide in/out
+    right: ${ ( { $isOpen } ) => ( $isOpen ? "0" : "-100%" ) }; // Slide in/out
     width: 700px;
     height: 100%;
     background-color: #fff;
@@ -34,7 +33,7 @@ const SidebarContainer = styled.div`
     flex-direction: column;
     box-sizing: border-box;
     align-items: flex-start;
-    animation: ${({ $isOpen }) => ($isOpen ? rightSlide : "none")} 0.3s ease-in-out; 
+    animation: ${ ( { $isOpen } ) => ( $isOpen ? rightSlide : "none" ) } 0.3s ease-in-out; 
 `;
 
 const SidebarHeader = styled.div`
@@ -100,13 +99,13 @@ const FloatingButton = styled.button`
     cursor: pointer;
 
     transition: all 0.2s ease, background-color 0.2s ease;
-    color: ${(props) => (props.$favourite ? "white" : "#bbb")};
-    background-color: ${(props) => (props.$favourite ? "rgb(54, 148, 41)" : "white")};
+    color: ${ ( props ) => ( props.$favourite ? "white" : "#bbb" ) };
+    background-color: ${ ( props ) => ( props.$favourite ? "rgb(54, 148, 41)" : "white" ) };
     
     &:hover {
-        border: 1px solid ${(props) => (props.$favourite ? "rgb(69, 175, 55)" : "rgb(53, 140, 255)")};
-        background-color: ${(props) => (props.$favourite ? "rgb(69, 175, 55)" : "white")};
-        color: ${(props) => (props.$favourite ? "white" : "#46B1C9")};
+        border: 1px solid ${ ( props ) => ( props.$favourite ? "rgb(69, 175, 55)" : "rgb(53, 140, 255)" ) };
+        background-color: ${ ( props ) => ( props.$favourite ? "rgb(69, 175, 55)" : "white" ) };
+        color: ${ ( props ) => ( props.$favourite ? "white" : "#46B1C9" ) };
     }
 `;
 const Row = styled.div`
@@ -121,7 +120,7 @@ const Column = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%; 
-    gap: ${({ gap }) => gap || "0px"}; 
+    gap: ${ ( { gap } ) => gap || "0px" }; 
     box-sizing: border-box; 
 
     & h3 {
@@ -156,96 +155,96 @@ const DetailChip = styled.div`
 `;
 const Spacer = styled.div`
     width: 100%;
-    height: ${({ height }) => height || "20px"};
+    height: ${ ( { height } ) => height || "20px" };
 `;
 
-const DetailViewSidebar = ({
+const DetailViewSidebar = ( {
     isOpen,
     onClose,
     vehicle,
     favouriteToggle
-}) => {
-    const [isFavourite, setIsFavourite] = useState(vehicle?.favourite);
+} ) => {
+    const [ isFavourite, setIsFavourite ] = useState( vehicle?.favourite );
     const handleFavouriteToggle = () => {
-        setIsFavourite(!isFavourite);
-        favouriteToggle(vehicle);
+        setIsFavourite( !isFavourite );
+        favouriteToggle( vehicle );
     };
-    if (!vehicle) return null; // Don't render if no vehicle is selected
+    if ( !vehicle ) return null; // Don't render if no vehicle is selected
 
     return (
-        <ScreenModalOverlay $isOpen={isOpen} onClick={onClose}>
-            <SidebarContainer $isOpen={isOpen} onClick={(e) => e.stopPropagation()}>
+        <ScreenModalOverlay $isOpen={ isOpen } onClick={ onClose }>
+            <SidebarContainer $isOpen={ isOpen } onClick={ ( e ) => e.stopPropagation() }>
                 <SidebarHeader>
-                    <SidebarTitle>{vehicle.year} {vehicle.make} {vehicle.model}</SidebarTitle>
-                    <CloseButton title="Close detail" onClick={onClose}><X /></CloseButton>
+                    <SidebarTitle>{ vehicle.year } { vehicle.make } { vehicle.model }</SidebarTitle>
+                    <CloseButton title="Close detail" onClick={ onClose }><X /></CloseButton>
                 </SidebarHeader>
                 <ImageArea>
-                    <img src={car_placeholder} alt={`${vehicle.make} ${vehicle.model}`} />
+                    <img src={ vehicle.image } alt={ `${ vehicle.make } ${ vehicle.model }` } />
                     <FloatingButton
-                        $favourite={vehicle.favourite}
-                        onClick={() => handleFavouriteToggle(vehicle)}
+                        $favourite={ vehicle.favourite }
+                        onClick={ () => handleFavouriteToggle( vehicle ) }
                         title="Toggle Favourite"
                     >
-                        <Bookmark size={24} strokeWidth={2.5} />
+                        <Bookmark size={ 24 } strokeWidth={ 2.5 } />
                     </FloatingButton>
                 </ImageArea>
                 <SidebarContent>
 
 
-                    {/* Row: 1st Level JSON Properties */}
+                    {/* Row: 1st Level JSON Properties */ }
                     <Row>
                         <Column>
                             <h3>Vehicle Data</h3>
-                            <DetailItem><strong>MAKE/MODEL</strong> {vehicle.make} {vehicle.model}</DetailItem>
-                            <DetailItem><strong>YEAR</strong> {vehicle.year}</DetailItem>
-                            <DetailItem><strong>MILEAGE</strong> {vehicle.mileage} km</DetailItem>
-                            <DetailItem><strong>LOCATION</strong> {vehicle.location}</DetailItem>
-                            <DetailItem><strong>FUEL</strong> {vehicle.fuel}</DetailItem>
-                            <DetailItem><strong>ENGINE SIZE</strong> {vehicle.engineSize}</DetailItem>
+                            <DetailItem><strong>MAKE/MODEL</strong> { vehicle.make } { vehicle.model }</DetailItem>
+                            <DetailItem><strong>YEAR</strong> { vehicle.year }</DetailItem>
+                            <DetailItem><strong>MILEAGE</strong> { vehicle.mileage } km</DetailItem>
+                            <DetailItem><strong>LOCATION</strong> { vehicle.location }</DetailItem>
+                            <DetailItem><strong>FUEL</strong> { vehicle.fuel }</DetailItem>
+                            <DetailItem><strong>ENGINE SIZE</strong> { vehicle.engineSize }</DetailItem>
                         </Column>
                     </Row>
 
                     <Row>
-                        <Column> {/* Column: Auction Details */}
+                        <Column> {/* Column: Auction Details */ }
                             <h3>Auction Details</h3>
-                            <DetailItem><strong>Starting Bid</strong> €{parseCommaDelimitedString(vehicle.startingBid)}</DetailItem>
-                            <DetailItem><strong>Date</strong> {dateToString(vehicle.auctionDateTime)}</DetailItem>
-                            <DetailItem><strong>Ends in</strong> {getDaysUntilDate(vehicle.auctionDateTime)} days</DetailItem>
-                            <DetailItem><strong>Reference</strong> {vehicle.reference}</DetailItem>
+                            <DetailItem><strong>Starting Bid</strong> €{ parseCommaDelimitedString( vehicle.startingBid ) }</DetailItem>
+                            <DetailItem><strong>Date</strong> { dateToString( vehicle.auctionDateTime ) }</DetailItem>
+                            <DetailItem><strong>Ends in</strong> { getDaysUntilDate( vehicle.auctionDateTime ) } days</DetailItem>
+                            <DetailItem><strong>Reference</strong> { vehicle.reference }</DetailItem>
 
                         </Column>
                     </Row>
 
 
-                    {/* Row: Ownership, Equipment, and Specification */}
+                    {/* Row: Ownership, Equipment, and Specification */ }
                     <Row>
-                        {/* Column: Ownership and Equipment */}
+                        {/* Column: Ownership and Equipment */ }
                         <Column>
                             <Column>
                                 <h3>Ownership</h3>
-                                <DetailItem><strong>LOG BOOK</strong> {vehicle.ownership.logBook}</DetailItem>
-                                <DetailItem><strong>PREV. OWNERS</strong> {vehicle.ownership.numberOfOwners}</DetailItem>
-                                <DetailItem><strong>REGISTRATION</strong> {dateToString(vehicle.ownership.dateOfRegistration)}</DetailItem>
+                                <DetailItem><strong>LOG BOOK</strong> { vehicle.ownership.logBook }</DetailItem>
+                                <DetailItem><strong>PREV. OWNERS</strong> { vehicle.ownership.numberOfOwners }</DetailItem>
+                                <DetailItem><strong>REGISTRATION</strong> { dateToString( vehicle.ownership.dateOfRegistration ) }</DetailItem>
                             </Column>
                             <Column>
                                 <h3>Equipment</h3>
-                                {vehicle.equipment.map((item, index) => (
-                                    <DetailChip key={index}>{item}</DetailChip>
-                                ))}
+                                { vehicle.equipment.map( ( item, index ) => (
+                                    <DetailChip key={ index }>{ item }</DetailChip>
+                                ) ) }
                             </Column>
                         </Column>
 
-                        {/* Column: Specification */}
+                        {/* Column: Specification */ }
                         <Column>
                             <h3>Specification</h3>
-                            <DetailItem><strong>VEHICLE TYPE</strong> {vehicle.specification.vehicleType}</DetailItem>
-                            <DetailItem><strong>COLOUR</strong> {vehicle.specification.colour}</DetailItem>
-                            <DetailItem><strong>FUEL TYPE</strong> {vehicle.specification.fuel}</DetailItem>
-                            <DetailItem><strong>TRANSMISSION</strong> {vehicle.specification.transmission}</DetailItem>
-                            <DetailItem><strong>DOORS</strong> {vehicle.specification.numberOfDoors}</DetailItem>
-                            <DetailItem><strong>CO2</strong> {vehicle.specification.co2Emissions}</DetailItem>
-                            <DetailItem><strong>NOx</strong> {vehicle.specification.noxEmissions}</DetailItem>
-                            <DetailItem><strong>KEYS</strong> {vehicle.specification.numberOfKeys}</DetailItem>
+                            <DetailItem><strong>VEHICLE TYPE</strong> { vehicle.specification.vehicleType }</DetailItem>
+                            <DetailItem><strong>COLOUR</strong> { vehicle.specification.colour }</DetailItem>
+                            <DetailItem><strong>FUEL TYPE</strong> { vehicle.specification.fuel }</DetailItem>
+                            <DetailItem><strong>TRANSMISSION</strong> { vehicle.specification.transmission }</DetailItem>
+                            <DetailItem><strong>DOORS</strong> { vehicle.specification.numberOfDoors }</DetailItem>
+                            <DetailItem><strong>CO2</strong> { vehicle.specification.co2Emissions }</DetailItem>
+                            <DetailItem><strong>NOx</strong> { vehicle.specification.noxEmissions }</DetailItem>
+                            <DetailItem><strong>KEYS</strong> { vehicle.specification.numberOfKeys }</DetailItem>
                         </Column>
                     </Row>
 
@@ -254,8 +253,8 @@ const DetailViewSidebar = ({
 
                     <Row>
                         <Column>
-                            <Spacer height={"60px"} />
-                            {vehicle.reference}
+                            <Spacer height={ "60px" } />
+                            { vehicle.reference }
                         </Column>
                     </Row>
 
