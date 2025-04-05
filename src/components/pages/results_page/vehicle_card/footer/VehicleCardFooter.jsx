@@ -17,18 +17,25 @@ const VehicleCardFooter = ( { vehicle, favouriteToggle, handleViewDetail } ) => 
                 { vehicle.location }
             </CardFooterContextInfo>
             <CardFooterActions>
+
                 <CardFavouriteButton
+                    aria-label="Favourite"
                     $favourite={ vehicle.favourite }
                     onClick={ handleFavouriteToggle }
-                    title={ vehicle.favourite ? "Remove from favourites" : "Favourite" }>
-
+                    title={ vehicle.favourite ? "Remove from favourites" : "Favourite" }
+                >
                     <Bookmark size={ 16 } strokeWidth={ 2.75 } />
                     { vehicle.favourite ? "Saved" : "Save" }
                 </CardFavouriteButton>
-                <CardDetailButton onClick={ () => handleViewDetail( vehicle ) }>
+
+                <CardDetailButton
+                    aria-label="View Offer"
+                    onClick={ () => handleViewDetail( vehicle ) }
+                >
                     <Eye size={ 16 } strokeWidth={ 2.75 } />
                     View Offer
                 </CardDetailButton>
+
             </CardFooterActions>
         </CardFooter>
     );

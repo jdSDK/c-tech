@@ -5,7 +5,7 @@ export const FilterChipsContainer = styled.div`
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
-    margin: 16px 0;
+    margin-top: 16px;
     font-size: 13px;
     user-select: none;
 `;
@@ -36,4 +36,11 @@ export const FilterChipCloseButton = styled.div`
     align-items: center;
     color: #aaa;
     transition: all 0.3s ease;
+`;
+export const FilterChipsHeader = styled.div`
+    font-size: 14px;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 `;

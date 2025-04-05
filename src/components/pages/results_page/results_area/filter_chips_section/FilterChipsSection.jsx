@@ -34,48 +34,62 @@ const FilterChipsSection = ( {
         } ) );
     };
 
+    const hasFilters = () => {
+        // Helper function to check if any filter is set for visual indication
+        return Object.keys( filters ).some( ( key ) => {
+            return filters[ key ] !== null;
+        } ) || Object.keys( rangeFilters ).some( ( key ) => {
+            const range = rangeFilters[ key ];
+            return range?.min || range?.max;
+        } );
+    };
+
+    const renderFilterChip = ( key, label, onClear ) => (
+        <Styled.FilterChip key={ key }>
+            <span>{ label }</span>
+            <Styled.FilterChipCloseButton title="Clear filter" onClick={ onClear }>
+                <X size={ 16 } strokeWidth={ 2.75 } />
+            </Styled.FilterChipCloseButton>
+        </Styled.FilterChip>
+    );
+    const renderFilters = () => (
+        Object.keys( filters ).map( ( key ) => {
+            if ( filters[ key ] !== null && filters[ key ] !== undefined && filters[ key ] !== "" ) {
+                const label = key === "favourite"
+                    ? "Show only Favourites"
+                    : `${ Vehicle.KEYWORD_FILTER_LABELS[ key ] }: ${ filters[ key ] }`;
+                return renderFilterChip( key, label, () => clearFilter( key ) );
+            }
+            return null;
+        } )
+    );
+    const renderRangeFilters = () => (
+        Object.keys( rangeFilters ).map( ( key ) => {
+            const range = rangeFilters[ key ];
+            if ( range?.min || range?.max ) {
+                const label = `${ Vehicle.KEYWORD_FILTER_LABELS[ key ] }: ${ range.min } - ${ range.max }`;
+                return renderFilterChip( key, label, () => clearRangeFilter( key ) );
+            }
+            return null;
+        } )
+    );
+
+
     return (
         <Styled.FilterChipsContainer>
             {
-                Object.keys( filters ).map( ( key ) => {
-                    return (
-                        filters[ key ] !== null && filters[ key ] !== undefined && filters[ key ] !== "" && (
-                            <Styled.FilterChip key={ key }>
-                                <span>
-                                    { // Special case for "favourites" where we want to show a different label
-                                        key === "favourite" ?
-                                            "Show only Favourites" :
-                                            `${ Vehicle.KEYWORD_FILTER_LABELS[ key ] }: ${ filters[ key ] }`
-                                    }
-                                </span>
-                                <Styled.FilterChipCloseButton title="Clear filter"
-                                    onClick={ () => clearFilter( key ) }>
-                                    <X size={ 16 } strokeWidth={ 2.75 } />
-                                </Styled.FilterChipCloseButton>
-                            </Styled.FilterChip>
-                        )
-                    );
-                } )
+                hasFilters() &&
+                <Styled.FilterChipsHeader aria-label="Active Filters">
+                    Active Filters:
+                </Styled.FilterChipsHeader>
             }
             {
-                Object.keys( rangeFilters ).map( ( key ) => {
-                    return (
-                        ( rangeFilters[ key ]?.min || rangeFilters[ key ].max ) && (
-
-                            <Styled.FilterChip key={ key }>
-
-                                <span>{ Vehicle.KEYWORD_FILTER_LABELS[ key ] }: { rangeFilters[ key ].min } - { rangeFilters[ key ].max }</span>
-                                <Styled.FilterChipCloseButton title="Clear filter"
-                                    onClick={ () => clearRangeFilter( key ) }>
-                                    <X size={ 16 } strokeWidth={ 2.75 } />
-                                </Styled.FilterChipCloseButton>
-                            </Styled.FilterChip>
-                        )
-                    );
-                }
-                )
-
+                renderFilters()
             }
+            {
+                renderRangeFilters()
+            }
+
         </Styled.FilterChipsContainer>
 
     );

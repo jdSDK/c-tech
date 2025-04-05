@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 import jsonVehicleData from '../../../dataset/vehicles_dataset_with_location_and_date.json';
 import { randint } from "../../../lib/Functions";
-import { Page, Container } from "../../../App";
+import { Page, Container, Wrapper } from "../../../App";
 
 import Vehicle from "../../../models/Vehicle";
 
@@ -140,33 +140,38 @@ const ResultsPage = () => {
 
     return (
         <Page>
-            <Container>
-                <FilterArea
-                    queryParams={ queryParams }
-                    setQueryParams={ handleQueryParamsChange }
-                />
-                <FilterChipsSection
-                    queryParams={ queryParams }
-                    setQueryParams={ handleQueryParamsChange }
-                />
-                <UpperPaginationBar
-                    metadata={ metadata }
-                    resultsPerPage={ resultsPerPage }
-                    setResultsPerPage={ handleResultsPerPageChange }
-                />
-                <ResultsArea
-                    vehicles={ vehicles }
-                    favouriteToggle={ handleFavouriteToggle }
-                    isLoading={ isLoading }
-                    handleViewDetail={ handleViewDetail }
-                />
-                <LowerPaginationBar
-                    metadata={ metadata }
-                    queryParams={ queryParams }
-                    currentPage={ currentPage }
-                    handlePageChange={ handleCurrentPageChange }
-                />
-            </Container>
+            <Wrapper>
+                <Container width="20%" padding="0">
+                    <FilterArea
+                        queryParams={ queryParams }
+                        setQueryParams={ handleQueryParamsChange }
+                    />
+                </Container>
+                <Container>
+                    <UpperPaginationBar
+                        metadata={ metadata }
+                        resultsPerPage={ resultsPerPage }
+                        setResultsPerPage={ handleResultsPerPageChange }
+                    />
+                    <FilterChipsSection
+                        queryParams={ queryParams }
+                        setQueryParams={ handleQueryParamsChange }
+                    />
+                    <ResultsArea
+                        vehicles={ vehicles }
+                        favouriteToggle={ handleFavouriteToggle }
+                        isLoading={ isLoading }
+                        handleViewDetail={ handleViewDetail }
+                    />
+                    <LowerPaginationBar
+                        metadata={ metadata }
+                        queryParams={ queryParams }
+                        currentPage={ currentPage }
+                        handlePageChange={ handleCurrentPageChange }
+                    />
+                </Container>
+            </Wrapper>
+
             <DetailViewSidebar
                 isOpen={ isSidebarOpen }
                 onClose={ handleCloseSidebar }

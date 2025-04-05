@@ -22,7 +22,6 @@ const Page = styled.div`
     width: 100%;
     color: #333;
     font-size: 1.2em;
-    
     line-height: 1.5;
     text-align: center;
     margin: 0;
@@ -31,18 +30,28 @@ const Page = styled.div`
 `;
 
 const Container = styled.div`
-    padding: 1em;
-    width: 60%;
+    padding: ${ props => props.padding || "1em" };
+    width: ${ props => props.width || "100%" };
+    height: fit-content;
     background-color: #f4f4f4;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin: 20px;
+`;
+export const Wrapper = styled.div`
+    display: flex;
+    gap:20px;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    height: 100%;
+    width:80%;
+    padding: 20px;
+    min-width: 1200px;
 
-    @media (max-width: 1500px) {
-       width: 85%;
+    @media (max-width: 1550px) {
+        width:95%;
     }
 `;
-
 
 
 const theme = {

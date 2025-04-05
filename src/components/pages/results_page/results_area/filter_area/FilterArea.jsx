@@ -19,7 +19,7 @@ const FilterArea = ( {
                 <Styled.FilterSortAreaTriggerComponent title="Show/Hide Filters & Sorting options">
                     <Styled.IconArea>
                         <Funnel size={ 20 } color="#aaa" strokeWidth={ 2 } />
-                        <span>Filters & Sorting options</span>
+                        <span>Filters & Sorting</span>
                     </Styled.IconArea>
                     { isOpen ?
                         <Minus size={ 20 } color="#aaa" strokeWidth={ 2 } />
