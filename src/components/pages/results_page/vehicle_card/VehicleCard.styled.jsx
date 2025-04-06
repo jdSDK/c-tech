@@ -5,7 +5,7 @@ export const Card = styled.div`
 background-color: #fff;
 border-radius: 8px;
 box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-width: 100%;~
+width: 100%;
 border: 1px solid rgb( 236, 236, 236 );
 height: 190px;
 display: flex;
@@ -51,7 +51,7 @@ export const DetailSection = styled.div`;
     display: flex;
     flex-grow: 1;
     font-size: 0.8em;
-    justify-content: space - between;
+    justify-content: space-between;
     padding-bottom: 5px;
     margin-bottom: 5px;
 `;

@@ -6,7 +6,7 @@ import {
     AuctionDateValue,
     AuctionDaysLeft,
 } from "./VehicleAuctionDetails.styled";
-import { dateToString, getDaysUntilDate } from '../../../../../lib/Functions';
+import { dateToString, getDaysUntilDate, getHoursUntilDateString } from '../../../../../lib/Functions';
 import { Clock, ClockAlert } from "lucide-react";
 
 const VehicleAuctionDetails = ( {
@@ -14,7 +14,7 @@ const VehicleAuctionDetails = ( {
 } ) => {
     const auctionDate = vehicle?.auctionDateTime;
     const daysLeft = getDaysUntilDate( auctionDate );
-
+    const hoursLeft = getHoursUntilDateString( auctionDate ) % 24;
     return (
         <AuctionDetailsWrapper>
             <AuctionDate>
@@ -28,7 +28,7 @@ const VehicleAuctionDetails = ( {
             </AuctionDate>
 
             <AuctionDaysLeft $urgent={ daysLeft < 7 }>
-                { daysLeft } day{ daysLeft == 1 ? "" : "s" } left
+                { daysLeft } day{ daysLeft == 1 ? "" : "s" }, { hoursLeft } hour{ hoursLeft == 1 ? "" : "s" } left
                 {
                     daysLeft < 7 ?
                         < ClockAlert color="red" size={ 16 } /> :
