@@ -22,8 +22,8 @@ const ResultsPage = () => {
     const [ currentPage, setCurrentPage ] = useState( 1 );
     const [ queryParams, setQueryParams ] = useState( {
         "filter": {
-            "make": null,
-            "model": null,
+            "make": [],
+            "model": [],
             "favourite": null,
         },
         "rangeFilter": {
@@ -113,6 +113,7 @@ const ResultsPage = () => {
     const handleQueryParamsChange = ( newQueryParams ) => {
         // Update the query params and reset the page to 1
         setQueryParams( newQueryParams );
+        setCurrentPage( 1 ); // Reset the current page to 1 when query params change
     };
     const handleViewDetail = ( vehicle ) => {
         setSelectedVehicle( vehicle );
@@ -134,16 +135,11 @@ const ResultsPage = () => {
         }
         // Vehicle.patch(path, vehicle) -> this is what I'd do in a real API call here
     };
-
-    if ( isPageLoading ) {
-        return <div>Loading...</div>;
-    }
-
     return (
         <Page>
             <SiteHeader />
             <Wrapper>
-                <Container $width="20%" $padding="0">
+                <Container $width="22%" $padding="0">
                     <FilterArea
                         queryParams={ queryParams }
                         setQueryParams={ handleQueryParamsChange }
@@ -159,12 +155,16 @@ const ResultsPage = () => {
                         queryParams={ queryParams }
                         setQueryParams={ handleQueryParamsChange }
                     />
-                    <ResultsArea
-                        vehicles={ vehicles }
-                        favouriteToggle={ handleFavouriteToggle }
-                        isLoading={ isLoading }
-                        handleViewDetail={ handleViewDetail }
-                    />
+                    {
+                        isPageLoading ?
+                            <></> :
+                            <ResultsArea
+                                vehicles={ vehicles }
+                                favouriteToggle={ handleFavouriteToggle }
+                                isLoading={ isLoading }
+                                handleViewDetail={ handleViewDetail }
+                            />
+                    }
                     <LowerPaginationBar
                         metadata={ metadata }
                         queryParams={ queryParams }

@@ -12,8 +12,8 @@ describe( "FilterChipsSection", () => {
     const defaultProps = {
         queryParams: {
             filter: {
-                make: "BMW",
-                model: "3 Series",
+                make: [ "BMW" ],
+                model: [ "3 Series" ],
             },
             rangeFilter: {
                 price: { min: 1000, max: 5000 },
@@ -26,7 +26,8 @@ describe( "FilterChipsSection", () => {
         queryParams: {
             filter: {
                 favourite: null,
-                color: null,
+                make: [],
+                model: [],
             },
             rangeFilter: {
                 price: { min: null, max: null },
@@ -39,6 +40,8 @@ describe( "FilterChipsSection", () => {
         queryParams: {
             filter: {
                 favourite: true,
+                make: [],
+                model: [],
             },
             rangeFilter: {
                 price: { min: null, max: null },

@@ -65,8 +65,8 @@ class Vehicle {
         location: "Location",
     };
 
-    static MAKE_MODEL_SETS = { // I'd populate this from an endpoint in a real world scenario
-        "Toyota": [ "Corolla", "C- HR" ],
+    static MAKE_MODEL_SETS = {
+        "Toyota": [ "Corolla", "C-HR" ],
         "Ford": [ "Focus", "Fiesta", "Focus C-Max", "Escort" ],
         "Volkswagen": [ "Polo", "Passat", "Golf", "Scirocco", "Tiguan" ],
         "Audi": [ "A3", "A4", "A6" ],
@@ -75,6 +75,38 @@ class Vehicle {
         "BMW": [ "3 Series", "1 Series", "5-Series", "X1" ],
         "Mercedes-Benz": [ "A-Class Hatchback", "B-Class", "A-Class Saloon", "E-Class Saloon" ],
     };
+    static MAKE_OPTIONS = Object.keys( Vehicle.MAKE_MODEL_SETS );
+    static MODEL_OPTIONS = [
+        "Corolla",
+        "C-HR",
+        "Focus",
+        "Fiesta",
+        "Focus C-Max",
+        "Escort",
+        "Polo",
+        "Passat",
+        "Golf",
+        "Scirocco",
+        "Tiguan",
+        "A3",
+        "A4",
+        "A6",
+        "C40",
+        "C30",
+        "V40",
+        "C3 Aircross",
+        "C5 Aircross",
+        "C3 Origin",
+        "Cactus",
+        "3 Series",
+        "1 Series",
+        "5-Series",
+        "X1",
+        "A-Class Hatchback",
+        "B-Class",
+        "A-Class Saloon",
+        "E-Class Saloon",
+    ];
 
     static getSampleVehicle = () => {
         return {
@@ -128,16 +160,18 @@ class Vehicle {
 
 
     static getMakeOptions = () => {
-        return Object.keys( Vehicle.MAKE_MODEL_SETS );
+        return Vehicle.MAKE_OPTIONS;
     };
     static getModelOptions = ( makes ) => {
-        const models = [];
+        if ( !makes )
+            return Vehicle.MODEL_OPTIONS;
+        const models = new Set();
         makes.forEach( make => {
             if ( Vehicle.MAKE_MODEL_SETS[ make ] ) {
-                models.push( ...Vehicle.MAKE_MODEL_SETS[ make ] );
+                Vehicle.MAKE_MODEL_SETS[ make ].forEach( model => models.add( model ) );
             }
         } );
-        return models;
+        return Array.from( models );
     };
     static getSortOptions = () => {
         return [
@@ -164,12 +198,19 @@ class Vehicle {
         These are the query Params, if they are different from null, I want them applied on the
         array of vehicles.
         "filter": { // EQ, GT, LT filters
-            "make": null,
-            "model": null,
+            "make": [
+                "Toyota",
+                "Ford",
+            ],
+            "model": [
+                "Corolla",
+                "C- HR",
+            ],
             "startingBid_range_start": null,
             "startingBid_range_end": null,
             "favourites": null,
         },
+        "operator": "AND", // AND, OR
         "sort": { // Sorts by field name, ascending/descending
             "sortBy": null,
             "ascending": null,
@@ -190,11 +231,11 @@ class Vehicle {
             vehicles = vehicles.filter( vehicle => {
                 let matches = true;
 
-                if ( make ) {
-                    matches = matches && vehicle.make.toLowerCase() === queryParams.filter.make.toLowerCase();
+                if ( make && make.length > 0 ) {
+                    matches = matches && make.some( m => m.toLowerCase() === vehicle.make.toLowerCase() );
                 }
-                if ( model ) {
-                    matches = matches && vehicle.model.toLowerCase() === queryParams.filter.model.toLowerCase();
+                if ( model && model.length > 0 ) {
+                    matches = matches && model.some( m => m.toLowerCase() === vehicle.model.toLowerCase() );
                 }
                 if ( favourite !== null && favourite !== undefined ) {
                     matches = matches && vehicle.favourite === favourite;
@@ -274,6 +315,7 @@ class Vehicle {
             metadata
         };
     }
+
 
     static patch( path, vehicle ) {
         // Here i would update the vehicle by ID

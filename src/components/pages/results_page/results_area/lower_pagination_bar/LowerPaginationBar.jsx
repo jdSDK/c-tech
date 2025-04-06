@@ -18,6 +18,8 @@ const LowerPaginationBar = ( {
         hasPreviousPage,
     } = metadata;
 
+    const lastPageString = "of " + ( pageCount == 0 ? 1 : pageCount ) + " pages";
+
     return (
         <Styled.PaginationContainer>
             <Styled.PaginationControls>
@@ -45,7 +47,7 @@ const LowerPaginationBar = ( {
                         inputLabel="Update Page"
                         textColor={ 'rgb(0, 109, 225)' }
                     />
-                    of { pageCount }
+                    { lastPageString }
                 </Styled.PaginationInfo>
 
                 <Styled.PaginationButton

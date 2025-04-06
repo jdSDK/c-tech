@@ -36,7 +36,7 @@ describe( "LowerPaginationBar", () => {
 
     it( "Shows correct Last Page number", () => {
         render( test_default );
-        const lastPageButton = screen.getByText( "of 10" );
+        const lastPageButton = screen.getByText( "of 10 pages" );
         expect( lastPageButton ).toBeInTheDocument();
 
 

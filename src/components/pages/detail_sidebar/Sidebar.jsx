@@ -5,6 +5,7 @@ import { X } from "lucide-react";
 import { dateToString, getDaysUntilDate, parseCommaDelimitedString } from "../../../lib/Functions";
 import { Bookmark } from "lucide-react";
 import { useState } from "react";
+import ImagePlaceholder from "../../common/placeholder_image/PlaceholderImage";
 
 const ScreenModalOverlay = styled.div`
     position: fixed;
@@ -29,7 +30,6 @@ const SidebarContainer = styled.div`
     z-index: 1000; 
     transition: right 0.3s ease-in-out;
     display: flex;
-    border: 1px solid #ddd;
     flex-direction: column;
     box-sizing: border-box;
     align-items: flex-start;
@@ -74,14 +74,15 @@ const SidebarContent = styled.div`
 const ImageArea = styled.div`
     align-self: center;
     position: relative;
-   
+    background: #222;
     width: 100%;
-    height: auto;
+    height: 300px;
+    overflow: hidden;
     object-fit: cover;
     
     & img{
-        width: 100%;
-        height: auto;
+        height: 100%;
+ 
     }
 `;
 const FloatingButton = styled.button`
@@ -179,7 +180,12 @@ const DetailViewSidebar = ( {
                     <CloseButton title="Close detail" onClick={ onClose }><X /></CloseButton>
                 </SidebarHeader>
                 <ImageArea>
-                    <img src={ vehicle.image } alt={ `${ vehicle.make } ${ vehicle.model }` } />
+                    {
+                        vehicle.image ?
+                            <img src={ vehicle.image } alt={ `${ vehicle.make } ${ vehicle.model }` } />
+                            :
+                            <ImagePlaceholder />
+                    }
                     <FloatingButton
                         $favourite={ vehicle.favourite }
                         onClick={ () => handleFavouriteToggle( vehicle ) }

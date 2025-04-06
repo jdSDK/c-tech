@@ -41,6 +41,10 @@ export const PaginationButton = styled.button`
 export const PaginationInfo = styled.div`
     font-size: 0.8em;
     color: #555;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 10px;
     text-align: center;
     font-weight: 500;
 `;

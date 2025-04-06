@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const StyledSelect = styled.select`
     height: 30px;
-    width: 130px;
+    width: 100%;
     padding: 0px 32px 0px 12px;
     border: 1px solid #f1f1f1;
     background-color: red;
@@ -31,10 +31,39 @@ export const StyledSelect = styled.select`
       color: #aaa;
     }
 `;
+export const SelectedValuesContainer = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+`;
+
+export const SelectedValueChip = styled.div`
+    background-color: #white;
+    padding: 4px 14px;
+    border-radius: 16px;
+    color: #888;
+    display: flex;
+    border:1px solid #ccc;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+`;
+
+export const RemoveButton = styled.button`
+    background: none;
+    border: none;
+    color: #888;
+    font-size: 16px;
+    margin-left: 4px;
+    cursor: pointer;
+`;
 export const SortContainer = styled.div`
     display: flex;
-    align-items: center;
-    gap: 0.5em;
+    width: 100%;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
     height: 100%;
 `;
 export const SortButton = styled.button`
@@ -61,23 +90,33 @@ export const RangeContainer = styled.div`
     display: flex;
     flex-direction: column;
     height: 100%;
-    gap: 3px;
+    align-items: flex-start;
+    width: 100%;
+    gap: 10px;
     margin-bottom: 14px;
-    & label{
-        font-size: 14px;
-        color: #aaa;
-    }
+    
 `;
 export const RangeInputContainer = styled.div`
     display: flex;
+    width: 100%;
+    align-items: flex-start;
+    justify-content: flex-start;
     gap: 8px;
-
 `;
+
+export const RangeInputWrapper = styled.div`
+    position: relative;
+    display: flex;
+    align-items: center;
+`;
+
 export const RangeInput = styled.input`
-    width: 80px;
+    width: 100%;
+
     height: 30px;
     padding: 0px 32px 0px 12px;
-    
+    box-sizing: border-box;
+
     border: 1px solid #ccc;
     border-radius: 4px;
     outline: none;
@@ -91,20 +130,38 @@ export const RangeInput = styled.input`
         color: #aaa;
     }
 `;
+
+export const ClearButton = styled.button`
+    position: absolute;
+    right: 8px;
+    background: none;
+    border: none;
+    color: #999;
+    font-size: 16px;
+    cursor: pointer;
+
+    &:hover {
+        color: #333;
+    }
+`;
 export const BooleanContainer = styled.div`
     display: flex;
     height: 100%;
-    align-items: center;
+    width: 100%;
+    align-items: flex-start;
+    flex-direction: row-reverse;
+    justify-content: space-between;
     gap: 2px;
     padding: 0px 26px 0px 16px;
 `;
 export const BooleanLabel = styled.label`
     font-size: 14px;
+    margin-left: 8px;
     color: #333;
 `;
 export const BooleanCheckbox = styled.input`
-    width: 16px;
-    height: 16px;
+    width: 18px;
+    height: 18px;
     cursor: pointer;
     accent-color: ${ ( { theme } ) => theme.primary };
 `;

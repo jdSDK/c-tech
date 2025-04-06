@@ -3,7 +3,7 @@ import { createGlobalStyle } from "styled-components";
 
 import ResultsPage from "./components/pages/results_page/ResultsPage";
 
-const GlobalStyle = createGlobalStyle`
+export const GlobalStyle = createGlobalStyle`
     body {
         margin: 0;
         padding: 0;
@@ -12,10 +12,10 @@ const GlobalStyle = createGlobalStyle`
         background-repeat: no-repeat;
         font-family: Inter, sans-serif;
         height: 100%;
-        min-width: 1100px;
+        min-width: 1300px;
     }
 `;
-const Page = styled.div`
+export const Page = styled.div`
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -31,7 +31,7 @@ const Page = styled.div`
     box-sizing: border-box;
 `;
 
-const Container = styled.div`
+export const Container = styled.div`
     padding: ${ props => props.$padding || "1em" };
     width: ${ props => props.$width || "100%" };
     height: fit-content;
@@ -50,7 +50,7 @@ export const Wrapper = styled.div`
     padding: 20px;
     min-width: 1200px;
     @media (max-width: 1550px) {
-        width:95%;
+        width:97%;
     }
 `;
 
@@ -64,7 +64,7 @@ const theme = {
     info: "#17a2b8",
 };
 
-export { theme, GlobalStyle, Page, Container };
+export { theme };
 
 
 function App() {

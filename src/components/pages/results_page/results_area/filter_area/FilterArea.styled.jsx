@@ -7,10 +7,10 @@ export const FilterSortAreaContainer = styled.div`
     width: 100%;
     justify-content: space-between;
     background: rgb(223, 223, 223);
-    background-image: linear-gradient(180deg, rgb(247, 247, 247) 0%, rgb(255, 255, 255) 100%);
+    background-image: linear-gradient(180deg, rgb(247, 247, 247) 0%, rgb(246, 246, 246) 100%);
     border: 1px solid #eee;
     border-radius: 0px 0px 8px 8px;
-    padding: 10px 20px;
+    padding:20px 20px;
     padding-bottom: 60px;
     font-size: 14px;
 `;
@@ -28,6 +28,12 @@ export const IconArea = styled.div`
     font-size: 14px;
     font-weight: 500;
     color: #333;
+`;
+export const Rule = styled.div`
+    width: 100%;
+    height: 1px;
+    background-color: #ddd;
+    margin: 12px 0;
 `;
 export const SortContainer = styled.div`
     display: flex;
@@ -48,3 +54,30 @@ export const FilterSortAreaTriggerComponent = styled.div`
     background: rgb(255, 255, 255);
     cursor: pointer;
 `;
+export const SubmitButton = styled.button`
+    height: 30px;
+    border-radius: 4px;
+    background-color: rgb(47, 124, 218);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    border: none;
+    align-self: center;
+    width: 70%;
+    gap:10px;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 0 20px;
+    margin-top: 20px;
+    &:disabled {
+        opacity: 0.5;
+    }
+     
+    &:hover:!disabled {
+        background-color: rgb(75, 148, 243);
+    }
+    transition: background-color 0.2s ease-in-out;
+`;
+

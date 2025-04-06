@@ -11,6 +11,8 @@ const CountChanger = ( {
     textColor,
 } ) => {
     const [ inputValue, setInputValue ] = useState( initialValue );
+    const [ isTooltipVisible, setIsTooltipVisible ] = useState( false );
+    const [ tooltipText, setTooltipText ] = useState( "" );
     const [ isValid, setIsValid ] = useState( true );
 
     // Synchronize with upper level state changes
@@ -24,6 +26,7 @@ const CountChanger = ( {
         // Basic validations
         if ( isNaN( newValue ) ) {
             setIsValid( false );
+            showTooltip( "Please enter a valid number!" );
             return;
         }
         if ( newValue == initialValue ) {
@@ -33,11 +36,15 @@ const CountChanger = ( {
         // Min validations - if minValue is absent, use 0
         if ( minValue ? newValue < minValue : newValue < 0 ) {
             setIsValid( false );
+            let minValueText = minValue ? minValue : 0;
+            showTooltip( "Value cannot be less than " + minValueText );
             return;
         }
         // Max validations - if maxValue is absent, use Infinity
         if ( maxValue ? newValue > maxValue : newValue > Infinity ) {
             setIsValid( false );
+            let maxValueText = maxValue ? maxValue : "Infinity";
+            showTooltip( "Value cannot be greater than " + maxValueText );
             return;
         }
         // If all validations pass, set isValid to true
@@ -47,22 +54,35 @@ const CountChanger = ( {
         handleValueUpdateCommit( newValue );
     };
 
+    const showTooltip = ( text ) => {
+        setIsTooltipVisible( true );
+        setTooltipText( text || "Invalid input!" );
+        setTimeout( () => {
+            setIsTooltipVisible( false );
+        }, 3000 ); // Hide tooltip after 3s
+    };
+
     return (
-        <Styled.Input
-            name={ inputLabel }
-            aria-label={ inputLabel }
-            value={ inputValue }
-            $isValid={ isValid }
-            $inputPadding={ inputPadding }
-            $textColor={ textColor }
-            onChange={ e => setInputValue( e.target.value ) }
-            onKeyUp={ ( e ) => {
-                if ( e.key === "Enter" ) {
-                    handleInputProcessingAndCommit( inputValue );
-                }
-            } }
-            onBlur={ () => handleInputProcessingAndCommit( inputValue ) }
-        />
+        <div style={ { position: "relative" } }>
+            <Styled.Tooltip $isVisible={ isTooltipVisible }>
+                { tooltipText }
+            </Styled.Tooltip>
+            <Styled.Input
+                name={ inputLabel }
+                aria-label={ inputLabel }
+                value={ inputValue }
+                $isValid={ isValid }
+                $inputPadding={ inputPadding }
+                $textColor={ textColor }
+                onChange={ e => setInputValue( e.target.value ) }
+                onKeyUp={ ( e ) => {
+                    if ( e.key === "Enter" ) {
+                        handleInputProcessingAndCommit( inputValue );
+                    }
+                } }
+                onBlur={ () => handleInputProcessingAndCommit( inputValue ) }
+            />
+        </div>
     );
 };
 export default CountChanger;

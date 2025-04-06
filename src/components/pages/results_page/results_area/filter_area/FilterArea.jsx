@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import * as Styled from "./FilterArea.styled";
 import Vehicle from "../../../../../models/Vehicle";
 import { FilterBoolean, FilterDropdown, FilterRange } from "../../../../inputs/FilterSelectors";
@@ -12,6 +12,20 @@ const FilterArea = ( {
 } ) => {
 
     const [ isOpen, setIsOpen ] = useState( false );
+    const [ uncommitedParams, setUncommitedParams ] = useState( queryParams );
+
+    // Sync the uncommitedParams state with queryParams when queryParams changes
+    // This is to ensure that the uncommitedParams are always in sync with the latest queryParams
+    // This is important for the FilterArea to work correctly
+    // and to avoid any issues with the filters and sorting options
+    useEffect( () => {
+        setUncommitedParams( queryParams );
+    }, [ queryParams ] );
+    // Handle the commit of uncommitedParams to queryParams
+    const commitChanges = () => {
+        setQueryParams( uncommitedParams );
+    };
+
 
     return (
         <Collapsible
@@ -36,49 +50,59 @@ const FilterArea = ( {
             <Styled.FilterSortAreaContainer>
                 <Styled.FilterContainer>
                     <FilterDropdown
-                        title="Make"
+                        title="Filter by make"
                         options={ Vehicle.getMakeOptions() }
                         target="make"
-                        queryParams={ queryParams }
-                        setQueryParams={ setQueryParams }
+                        queryParams={ uncommitedParams }
+                        setQueryParams={ setUncommitedParams }
                     />
+                    <Styled.Rule />
                     <FilterDropdown
-                        title="Model"
-                        options={ Vehicle.getModelOptions( queryParams?.filter?.make ? [ queryParams.filter.make ] : [] ) }
-                        condition={ queryParams?.filter?.make }
+                        title="Filter by model"
+                        options={ Vehicle.getModelOptions() }
+
                         target="model"
-                        queryParams={ queryParams }
-                        setQueryParams={ setQueryParams }
+                        queryParams={ uncommitedParams }
+                        setQueryParams={ setUncommitedParams }
+                    />
+                    <Styled.Rule />
+                    <FilterRange
+                        title="Starting Bid range"
+                        target="startingBid"
+                        queryParams={ uncommitedParams }
+                        setQueryParams={ setUncommitedParams }
                     />
                     <FilterBoolean
-                        title="Favourites"
+                        title="Show only favourites"
                         target="favourite"
-                        queryParams={ queryParams }
+                        queryParams={ uncommitedParams }
                         clearOnFalse={ true }
-                        setQueryParams={ setQueryParams }
-                    />
-
-                    <FilterRange
-                        title="Starting Bid"
-                        target="startingBid"
-                        queryParams={ queryParams }
-                        setQueryParams={ setQueryParams }
+                        setQueryParams={ setUncommitedParams }
                     />
                 </Styled.FilterContainer>
-
+                <Styled.Rule />
                 <Styled.SortContainer>
                     <SortDropdown
                         title="Sort by"
                         options={ Vehicle.getSortOptions() }
-                        queryParams={ queryParams }
-                        setQueryParams={ setQueryParams }
+                        queryParams={ uncommitedParams }
+                        setQueryParams={ setUncommitedParams }
                     />
                     <SortInvertButton
-                        queryParams={ queryParams }
-                        setQueryParams={ setQueryParams }
+                        queryParams={ uncommitedParams }
+                        setQueryParams={ setUncommitedParams }
                     />
                 </Styled.SortContainer>
+                <Styled.Rule />
+                <Styled.SubmitButton
+                    className="commit-button"
+                    onClick={ commitChanges }
+                    disabled={ JSON.stringify( uncommitedParams ) === JSON.stringify( queryParams ) }
+                >
+                    <Funnel size={ 18 } color="white" strokeWidth={ 2 } /> Apply
+                </Styled.SubmitButton>
             </Styled.FilterSortAreaContainer>
+
         </Collapsible>
     );
 };
