@@ -40,3 +40,7 @@
 - Vitest setup
 - Multi-filter debugging
 - Basic tests
+- debugging filters
+- debugging pagination
+- improving filter layout
+- visual improvements
