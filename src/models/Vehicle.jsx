@@ -173,6 +173,14 @@ class Vehicle {
         } );
         return Array.from( models );
     };
+    static getMakeFromModel = ( model ) => {
+        for ( const make in Vehicle.MAKE_MODEL_SETS ) {
+            if ( Vehicle.MAKE_MODEL_SETS[ make ].includes( model ) ) {
+                return make;
+            }
+        }
+        return null;
+    };
     static getSortOptions = () => {
         return [
             "make",
@@ -231,12 +239,19 @@ class Vehicle {
             vehicles = vehicles.filter( vehicle => {
                 let matches = true;
 
+                if ( model && model.length > 0 ) {
+                    matches = matches && model.some( m => m.toLowerCase() === vehicle.model.toLowerCase() );
+                    // If a model is added without its corresponding make, it will not be matched, so we need to
+                    // also add the make to the filter
+                    if ( !make || make.length === 0 ) {
+                        matches = matches && Vehicle.MAKE_MODEL_SETS[ vehicle.make ]?.includes( vehicle.model );
+
+                    }
+                }
                 if ( make && make.length > 0 ) {
                     matches = matches && make.some( m => m.toLowerCase() === vehicle.make.toLowerCase() );
                 }
-                if ( model && model.length > 0 ) {
-                    matches = matches && model.some( m => m.toLowerCase() === vehicle.model.toLowerCase() );
-                }
+
                 if ( favourite !== null && favourite !== undefined ) {
                     matches = matches && vehicle.favourite === favourite;
                 }

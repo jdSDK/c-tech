@@ -1,4 +1,4 @@
-import { X } from "lucide-react";
+import { X, FunnelX } from "lucide-react";
 import * as Styled from "./FilterChipsSection.styled";
 import Vehicle from "../../../../../models/Vehicle";
 
@@ -21,10 +21,18 @@ const FilterChipsSection = ( {
         } ) );
     };
     const clearFilterArray = ( key, value ) => {
+        if ( !filters[ key ] ) {
+            filters[ key ] = []; // Ensure the key is initialized as an array
+        }
+
         filters[ key ] = filters[ key ].filter( ( v ) => v !== value );
-        setQueryParams( prev => ( {
+
+        setQueryParams( ( prev ) => ( {
             ...prev,
-            filter: filters
+            filter: {
+                ...prev.filter,
+                [ key ]: filters[ key ],
+            },
         } ) );
     };
     const clearRangeFilter = ( key ) => {
@@ -111,21 +119,63 @@ const FilterChipsSection = ( {
 
 
     return (
-        <Styled.FilterChipsContainer>
-            {
-                hasFilters() &&
-                <Styled.FilterChipsHeader aria-label="Active Filters">
-                    Active Filters:
-                </Styled.FilterChipsHeader>
-            }
-            {
-                renderFilters()
-            }
-            {
-                renderRangeFilters()
-            }
+        <Styled.FilterChipsAndClearButtonWrapper>
+            <Styled.FilterChipsContainer>
+                {
+                    hasFilters() &&
+                    <Styled.FilterChipsHeader aria-label="Active Filters">
+                        Active Filters:
+                    </Styled.FilterChipsHeader>
+                }
+                {
+                    renderFilters()
+                }
+                {
+                    renderRangeFilters()
+                }
 
-        </Styled.FilterChipsContainer>
+            </Styled.FilterChipsContainer>
+            <div>
+                {
+                    hasFilters() &&
+                    <Styled.ClearButtonWrapper>
+                        <Styled.ClearButton
+                            title="Clear all filters"
+                            onClick={ () => setQueryParams( {
+                                ...queryParams,
+                                filter: {
+                                    make: [],
+                                    model: [],
+                                    favourite: null,
+                                },
+                                rangeFilter: {
+                                    startingBid: {
+                                        min: null,
+                                        max: null,
+                                    },
+                                    mileage: {
+                                        min: null,
+                                        max: null,
+                                    },
+                                    year: {
+                                        min: null,
+                                        max: null,
+                                    },
+                                },
+                            } ) }
+                            disabled={ !hasFilters() }
+                        >
+                            <FunnelX size={ 16 } strokeWidth={ 2 } /> Clear All Filters
+                        </Styled.ClearButton>
+                    </Styled.ClearButtonWrapper>
+
+                }
+            </div>
+
+
+
+        </Styled.FilterChipsAndClearButtonWrapper>
+
 
     );
 };

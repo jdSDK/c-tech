@@ -10,8 +10,6 @@ width: 100%;
     padding: 0;
     margin: 10px;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    
     svg {
         width: 50px;
         height: 50px;

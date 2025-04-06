@@ -3,7 +3,7 @@ import * as Styled from './SiteHeader.styled';
 
 const SiteHeader = () => {
     return (
-        <Styled.Header>
+        <Styled.Header style={ { "pointerEvents": "none", "userSelect": "none" } }>
             <Styled.HeaderWrapper>
 
                 <Styled.TitleContainer>
@@ -20,9 +20,7 @@ const SiteHeader = () => {
 
                 <Styled.Nav>
                     <ul>
-                        <li>Home</li>
-                        <li>Favourites</li>
-                        <li>Browse</li>
+
                     </ul>
                 </Styled.Nav>
 

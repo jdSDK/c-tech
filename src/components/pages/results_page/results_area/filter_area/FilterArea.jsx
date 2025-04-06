@@ -81,7 +81,7 @@ const FilterArea = ( {
                     />
                 </Styled.FilterContainer>
                 <Styled.Rule />
-                <Styled.SortContainer>
+                <Styled.SortContainer $alignEnd={ "flex-end" }>
                     <SortDropdown
                         title="Sort by"
                         options={ Vehicle.getSortOptions() }

@@ -62,6 +62,7 @@ export const SortContainer = styled.div`
     display: flex;
     width: 100%;
     align-items: flex-start;
+    justify-content: flex-end;
     flex-direction: column;
     gap: 10px;
     height: 100%;
@@ -75,6 +76,7 @@ export const SortButton = styled.button`
     align-items: center;
     justify-content: center;
     color:white;
+    margin-top: 30px;
     border:none;
     
     &:disabled{

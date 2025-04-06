@@ -147,9 +147,10 @@ const DetailItem = styled.div`
 const DetailChip = styled.div`
     background-color: #f1f1f1;
     border-radius: 8px;
-    padding: 10px 20px;
+    padding: 6px 15px;
     font-size: 14px;
     width: fit-content;
+    margin-top:5px;
     display: flex;
     align-items: flex-start;
     margin-right: 5px;
@@ -158,6 +159,59 @@ const Spacer = styled.div`
     width: 100%;
     height: ${ ( { height } ) => height || "20px" };
 `;
+const InteractionArea = styled.div`
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    gap: 20px;
+    padding: 20px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 20px;
+    `;
+
+const ContactButton = styled.button`
+    background-color: rgb( 34, 119, 231 );
+    color: white;
+    border: none;
+    font-size: 16px;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+        background-color: rgb(43, 134, 253);
+    }
+          &:disabled {
+        filter: grayscale(50%);
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+ `;
+
+const BidButton = styled.button`
+    background-color: rgb(207, 138, 0);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+        background-color: rgb(231, 159, 27);
+    }
+
+    &:disabled {
+        filter: grayscale(50%);
+         opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    `;
 
 const DetailViewSidebar = ( {
     isOpen,
@@ -194,6 +248,12 @@ const DetailViewSidebar = ( {
                         <Bookmark size={ 24 } strokeWidth={ 2.5 } />
                     </FloatingButton>
                 </ImageArea>
+
+                <InteractionArea>
+                    <ContactButton disabled>Contact Seller</ContactButton>
+                    <BidButton disabled>Bid</BidButton>
+                </InteractionArea>
+
                 <SidebarContent>
 
 
@@ -253,9 +313,6 @@ const DetailViewSidebar = ( {
                             <DetailItem><strong>KEYS</strong> { vehicle.specification.numberOfKeys }</DetailItem>
                         </Column>
                     </Row>
-
-
-
 
                     <Row>
                         <Column>

@@ -70,7 +70,6 @@ const ResultsPage = () => {
         loadVehicleDB();
     }, [] );
 
-
     useEffect( () => {
         /*
         Load the vehicles with the query params
@@ -111,9 +110,7 @@ const ResultsPage = () => {
         } );
     };
     const handleQueryParamsChange = ( newQueryParams ) => {
-        // Update the query params and reset the page to 1
         setQueryParams( newQueryParams );
-        setCurrentPage( 1 ); // Reset the current page to 1 when query params change
     };
     const handleViewDetail = ( vehicle ) => {
         setSelectedVehicle( vehicle );
